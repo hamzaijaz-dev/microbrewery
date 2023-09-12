@@ -40,26 +40,23 @@ You can find the docker desktop from: https://www.docker.com/products/docker-des
 
 ### Run warehouse-microservice:
 * ``cp warehouse/warehouse/template.env warehouse/warehouse/.env``
-
-Add your RABBIT_MQ_URL in the .env file, Next run this command:
+* Add your RABBIT_MQ_URL in the .env file, Next run this command:
 * ``cd warehouse && docker-compose up``
-
-### Run sales-microservice:
-* ``cp sales/sales/template.env sales/sales/.env``
-
-Add your RABBIT_MQ_URL in the .env file, Next run this command:
-* ``cd sales && docker-compose up``
+* API documentations: http://0.0.0.0:8001/api/v1/docs
 
 ### Run accounting-microservice:
 * ``cp accounting/accounting/template.env accounting/accounting/.env``
-
-Add your RABBIT_MQ_URL in the .env file, Next run this command:
+* Add your RABBIT_MQ_URL in the .env file, Next run this command:
 * ``cd accounting && docker-compose up``
+* API documentations: http://0.0.0.0:8002/api/v1/docs
+
+### Run sales-microservice:
+* ``cp sales/sales/template.env sales/sales/.env``
+* Add your RABBIT_MQ_URL in the .env file, Next run this command:
+* ``cd sales && docker-compose up``
+* API documentations: http://0.0.0.0:8003/api/v1/docs
 
 ### Run main-service:
-Add the microservices URLs as environment variables in the docker-compose.yaml file located in the main directory with the following names: WAREHOUSE_URL, SALES_URL, and ACCOUNTING_URL.
+* Add the microservices URLs as environment variables in the docker-compose.yaml file located in the main directory with the following names: WAREHOUSE_URL, SALES_URL, and ACCOUNTING_URL.
 * ``cd main && docker-compose up``
-
-You will find the main-services documentations from: http://0.0.0.0:8000/docs
-
-<code><img height="500" src="https://github.com/hamzaijaz-dev/microbrewery/blob/main/assets/main-docs.png"></code>
+* API documentations: http://0.0.0.0:8000/docs
