@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: [ "./wait-for-mysql.sh", "db", "3306", "python", "manage.py", "runserver", "0.0.0.0:8001"]
+    ports:
+      - 8001:8001
+    volumes:
+      - .:/warehouse
+    working_dir: /warehouse
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://0.0.0.0:8001 || exit 1" ]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - db
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'python -u consumer.py'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: warehouse
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 33066:3306
+
+volumes:
+  db-data:

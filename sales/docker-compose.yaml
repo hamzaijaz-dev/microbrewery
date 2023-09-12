@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: [ "./wait-for-mysql.sh", "db", "3306", "python", "manage.py", "runserver", "0.0.0.0:8003"]
+    ports:
+      - 8003:8003
+    volumes:
+      - .:/sales
+    environment:
+      - CLOUDAMQP_URL=amqps://lexdtvkl:HGvHNbul_FdO0906hJ0z0rV_kKDw_XFz@rattlesnake.rmq.cloudamqp.com/lexdtvkl
+    working_dir: /sales
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://0.0.0.0:8003 || exit 1" ]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - db
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'python -u consumer.py'
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: sales
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 33068:3306
+
+volumes:
+  db-data:
