@@ -42,21 +42,31 @@ You can find the docker desktop from: https://www.docker.com/products/docker-des
 * ``cp warehouse/warehouse/template.env warehouse/warehouse/.env``
 * Add your RABBIT_MQ_URL in the .env file, Next run this command:
 * ``cd warehouse && docker-compose up``
+* Admin URL: http://0.0.0.0:8001/admin
 * API documentations: http://0.0.0.0:8001/api/v1/docs
 
 ### Run accounting-microservice:
 * ``cp accounting/accounting/template.env accounting/accounting/.env``
 * Add your RABBIT_MQ_URL in the .env file, Next run this command:
 * ``cd accounting && docker-compose up``
+* Admin URL: http://0.0.0.0:8002/admin
 * API documentations: http://0.0.0.0:8002/api/v1/docs
 
 ### Run sales-microservice:
 * ``cp sales/sales/template.env sales/sales/.env``
 * Add your RABBIT_MQ_URL in the .env file, Next run this command:
 * ``cd sales && docker-compose up``
+* Admin URL: http://0.0.0.0:8003/admin
 * API documentations: http://0.0.0.0:8003/api/v1/docs
 
 ### Run main-service:
 * Add the microservices URLs as environment variables in the docker-compose.yaml file located in the main directory with the following names: WAREHOUSE_URL, SALES_URL, and ACCOUNTING_URL.
 * ``cd main && docker-compose up``
 * API documentations: http://0.0.0.0:8000/docs
+
+### Useful commands:
+* Run ``docker-compose exec <image-name> sh`` to execute a shell within a running container that is managed by Docker Compose
+* Run ``python manage.py migrate`` to run the migrations of the microservice
+* Run ``python manage.py createsuper`` to create a super-user to access the admin dashboard
+* Run ``docker exec -it <volume-name> mysql -u root -p`` to access a MySQL database within a running in Docker container
+* Run ``python -u consumer.py`` to verify the RabbitMQ connection in terminal managed by Docker compose
