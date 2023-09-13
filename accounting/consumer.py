@@ -26,7 +26,7 @@ def callback(ch, method, properties, body):
     data = json.loads(body)
     logger.info(f'Received data: {data}')
     with transaction.atomic():
-        Revenue.objects.create(reference_number=data.get('order_id'), revenue_amount=data.get('order_amount'))
+        Revenue.objects.create(order_number=data.get('order_id'), revenue_amount=data.get('order_amount'))
         logger.info('Revenue is added.')
 
 
