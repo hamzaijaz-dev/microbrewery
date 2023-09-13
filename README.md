@@ -70,3 +70,6 @@ You can find the docker desktop from: https://www.docker.com/products/docker-des
 * Run ``python manage.py createsuper`` to create a super-user to access the admin dashboard
 * Run ``docker exec -it <volume-name> mysql -u root -p`` to access a MySQL database within a running in Docker container
 * Run ``python -u consumer.py`` to verify the RabbitMQ connection in terminal managed by Docker compose
+
+Sometimes, we need a tool that creates a secure, publicly accessible tunnel URL to an application that's running on localhost. Especially, when we are implementing multiple microservices in same environment (localhost).
+* Use ngrok for tunneling the URLs: https://ngrok.com
