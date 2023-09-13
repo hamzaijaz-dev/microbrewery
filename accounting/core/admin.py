@@ -1,4 +1,4 @@
-from core.models import ExpenseType, Expense, Revenue, RevenueType
+from core.models import Expense, ExpenseType, Revenue, RevenueType
 from django.contrib import admin
 
 admin.site.register(RevenueType)
