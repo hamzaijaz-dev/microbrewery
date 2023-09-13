@@ -7,12 +7,12 @@ from rest_framework.test import APITestCase
 class RevenueViewSetTestCase(APITestCase):
     def setUp(self):
         self.revenue1 = Revenue.objects.create(
-            reference_number='ORDER001',
+            order_number='ORDER001',
             revenue_amount=1000.00
         )
 
         self.revenue2 = Revenue.objects.create(
-            reference_number='ORDER002',
+            order_number='ORDER002',
             revenue_amount=1500.50
         )
 

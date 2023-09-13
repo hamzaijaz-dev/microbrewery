@@ -14,11 +14,6 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class RevenueType(BaseModel):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-
-
 class ExpenseType(BaseModel):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -27,7 +22,6 @@ class ExpenseType(BaseModel):
 class Revenue(BaseModel):
     order_number = models.CharField(max_length=255)
     revenue_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    type = models.ForeignKey(RevenueType, on_delete=models.CASCADE, related_name='revenue_details')
 
 
 class Expense(BaseModel):
