@@ -44,4 +44,7 @@ class ProductViewSet(GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModel
                 )
         except Exception as e:
             logger.error(f"Error placing order: {str(e)}")
-            return Response(data={'message': 'An error occurred while processing the order.'}, status=500)
+            return Response(
+                data={'message': f'An error occurred while processing the order. reason: {str(e)}'},
+                status=500
+            )
