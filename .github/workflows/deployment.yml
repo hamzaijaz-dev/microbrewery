@@ -1,0 +1,46 @@
+name: Production Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: [self-hosted, microbrewery]
+    steps:
+      - name: Grab the fresh code
+        run: |
+          cd ~/microbrewery
+          git pull
+
+      - name: Warehouse | Install Python packages and update database
+        run: |
+          cd ~/microbrewery/warehouse
+          docker-compose exec app pip install -r requirements.txt
+          docker-compose exec app python manage.py migrate
+          docker compose -f docker-compose.yaml up -d --build
+
+      - name: Accounting | Install Python packages and update database
+        run: |
+          cd ~/microbrewery/accounting
+          docker-compose exec app pip install -r requirements.txt
+          docker-compose exec app python manage.py migrate
+          docker compose -f docker-compose.yaml up -d --build
+
+      - name: Sales | Install Python packages and update database
+        run: |
+          cd ~/microbrewery/sales
+          docker-compose exec app pip install -r requirements.txt
+          docker-compose exec app python manage.py migrate
+          docker compose -f docker-compose.yaml up -d --build
+
+      - name: Main | re-build
+        run: |
+          cd ~/microbrewery/main
+          docker compose -f docker-compose.yaml up -d --build
+
+      - name: Restart Nginx
+        run: |
+          sudo service nginx restart
