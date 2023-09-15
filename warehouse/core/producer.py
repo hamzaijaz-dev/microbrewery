@@ -14,7 +14,7 @@ load_dotenv(dotenv_path=env_path)
 
 credentials = pika.PlainCredentials(os.environ.get('RABBIT_MQ_USER'), os.environ.get('RABBIT_MQ_PASS'))
 params = pika.ConnectionParameters(
-    os.environ.get('RABBIT_MQ_HOST'), 5672, os.environ.get('RABBIT_MQ_USER'),credentials, heartbeat=0
+    os.environ.get('RABBIT_MQ_HOST'), 5672, os.environ.get('RABBIT_MQ_USER'), credentials, heartbeat=0
 )
 connection = pika.BlockingConnection(params)
 channel = connection.channel()
