@@ -15,7 +15,10 @@ from core.models import Product
 
 logger = logging.getLogger(__name__)
 
-params = pika.URLParameters(os.environ.get('RABBIT_MQ_URL'))
+credentials = pika.PlainCredentials(os.environ.get('RABBIT_MQ_USER'), os.environ.get('RABBIT_MQ_PASS'))
+params = pika.ConnectionParameters(
+    os.environ.get('RABBIT_MQ_HOST'), 5672, os.environ.get('RABBIT_MQ_USER'),credentials, heartbeat=0
+)
 connection = pika.BlockingConnection(params)
 channel = connection.channel()
 channel.queue_declare(queue='warehouse')

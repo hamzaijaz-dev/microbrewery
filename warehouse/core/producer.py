@@ -12,7 +12,10 @@ django.setup()
 env_path = Path('warehouse') / '.env'
 load_dotenv(dotenv_path=env_path)
 
-params = pika.URLParameters(os.environ.get('RABBIT_MQ_URL'))
+credentials = pika.PlainCredentials(os.environ.get('RABBIT_MQ_USER'), os.environ.get('RABBIT_MQ_PASS'))
+params = pika.ConnectionParameters(
+    os.environ.get('RABBIT_MQ_HOST'), 5672, os.environ.get('RABBIT_MQ_USER'),credentials, heartbeat=0
+)
 connection = pika.BlockingConnection(params)
 channel = connection.channel()
 
