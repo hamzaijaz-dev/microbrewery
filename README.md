@@ -40,21 +40,21 @@ You can find the docker desktop from: https://www.docker.com/products/docker-des
 
 ### Run warehouse-microservice:
 * ``cp warehouse/warehouse/template.env warehouse/warehouse/.env``
-* Add your RABBIT_MQ_URL in the .env file, Next run this command:
+* Add details for host such as RABBIT_MQ_USER, RABBIT_MQ_PASSRABBIT_MQ_HOST in the .env file, Next run this command:
 * ``cd warehouse && docker-compose up``
 * Admin URL: http://0.0.0.0:8001/admin
 * API documentations: http://0.0.0.0:8001/api/v1/docs
 
 ### Run accounting-microservice:
 * ``cp accounting/accounting/template.env accounting/accounting/.env``
-* Add your RABBIT_MQ_URL in the .env file, Next run this command:
+* Add details for host such as RABBIT_MQ_USER, RABBIT_MQ_PASSRABBIT_MQ_HOST in the .env file, Next run this command:
 * ``cd accounting && docker-compose up``
 * Admin URL: http://0.0.0.0:8002/admin
 * API documentations: http://0.0.0.0:8002/api/v1/docs
 
 ### Run sales-microservice:
 * ``cp sales/sales/template.env sales/sales/.env``
-* Add your RABBIT_MQ_URL in the .env file, Next run this command:
+* Add details for host such as RABBIT_MQ_USER, RABBIT_MQ_PASSRABBIT_MQ_HOST in the .env file, Next run this command:
 * ``cd sales && docker-compose up``
 * Admin URL: http://0.0.0.0:8003/admin
 * API documentations: http://0.0.0.0:8003/api/v1/docs
